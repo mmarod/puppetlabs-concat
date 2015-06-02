@@ -160,6 +160,12 @@ Puppet::Type.newtype(:concat_file) do
       end
     end
 
+    [:alias, :audit, :before, :loglevel, :noop, :notify, :require, :schedule, :stage, :subscribe].each do |param|
+      unless self[param].nil?
+        file_opts[param] = self[param]
+      end
+    end
+
     [Puppet::Type.type(:file).new(file_opts)]
   end
 end
